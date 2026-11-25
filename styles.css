@@ -1,0 +1,94 @@
+/* ========================================================
+   BolTranslate — Indian Marigold & Rangoli Theme
+   Cream (#FFF6E5), Marigold (#F28C1B), Deep Maroon (#7A1F2B), Leaf Green (#3E7C4A)
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --font-stack: 'Baloo 2', 'Nirmala UI', 'Lohit Devanagari', 'Mangal', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --bg-cream: #FFF6E5;
+  --marigold: #F28C1B;
+  --marigold-dark: #D9730D;
+  --maroon: #7A1F2B;
+  --maroon-deep: #2A080D;
+  --leaf: #3E7C4A;
+  --paper: #FFFDF9;
+  --paper-border: #E8D5BC;
+}
+
+body {
+  font-family: var(--font-stack);
+  background-color: var(--bg-cream);
+  color: #381217;
+  /* Subtle Repeating Rangoli / Mandala Pattern in Marigold & Maroon */
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%237A1F2B' fill-opacity='0.032' fill-rule='evenodd'%3E%3Cpath d='M40 0l4 16 16-4-4 16 16 4-16 4 4 16-16-4-4 16-4-16-16 4 4-16-16-4 16-4-4-16 16 4zM40 26a14 14 0 1 0 0 28 14 14 0 0 0 0-28zm0 5a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10z'/%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='80' cy='0' r='6'/%3E%3Ccircle cx='0' cy='80' r='6'/%3E%3Ccircle cx='80' cy='80' r='6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Matching Dark Mode: Deep Maroon with Golden Patterns */
+.dark body {
+  background-color: #26070B;
+  color: #FFF2DB;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23F28C1B' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M40 0l4 16 16-4-4 16 16 4-16 4 4 16-16-4-4 16-4-16-16 4 4-16-16-4 16-4-4-16 16 4zM40 26a14 14 0 1 0 0 28 14 14 0 0 0 0-28zm0 5a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10z'/%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='80' cy='0' r='6'/%3E%3Ccircle cx='0' cy='80' r='6'/%3E%3Ccircle cx='80' cy='80' r='6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Handcrafted Paper Cards (clean, thin hand-drawn feel, slight warm shadow) */
+.marigold-card {
+  background-color: #FFFDF9;
+  border: 1.5px solid #EAD8C1;
+  border-radius: 20px;
+  box-shadow: 0 4px 18px -2px rgba(122, 31, 43, 0.05), 0 1px 3px rgba(122, 31, 43, 0.03);
+  transition: all 0.2s ease;
+}
+
+.marigold-card:hover {
+  box-shadow: 0 8px 24px -4px rgba(122, 31, 43, 0.08), 0 2px 6px rgba(122, 31, 43, 0.04);
+}
+
+.dark .marigold-card {
+  background-color: #350D13;
+  border-color: #571C23;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Festive Marigold Button */
+.btn-marigold {
+  background: linear-gradient(135deg, #F28C1B 0%, #D9730D 100%);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(242, 140, 27, 0.35);
+  transition: all 0.2s ease;
+}
+.btn-marigold:hover {
+  background: linear-gradient(135deg, #E07A0B 0%, #C26305 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(242, 140, 27, 0.45);
+}
+.btn-marigold:active {
+  transform: translateY(0);
+}
+
+/* Badges with warm festive pulse */
+@keyframes leafGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(62, 124, 74, 0.2); }
+  50% { box-shadow: 0 0 18px rgba(62, 124, 74, 0.4); }
+}
+@keyframes marigoldGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(242, 140, 27, 0.2); }
+  50% { box-shadow: 0 0 18px rgba(242, 140, 27, 0.4); }
+}
+.badge-on-device { animation: leafGlow 2.5s infinite; }
+.badge-cloud { animation: marigoldGlow 2.5s infinite; }
+
+/* Custom audio recording wave */
+@keyframes micWave {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.recording-pulse { animation: micWave 1.1s infinite ease-in-out; }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #E6CEB3; border-radius: 9999px; }
+.dark ::-webkit-scrollbar-thumb { background: #5E2028; }

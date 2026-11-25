@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BolTranslate — Indian Marigold & Rangoli Hybrid AI Translator</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23F28C1B%22/><circle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22%237A1F2B%22/><text x=%2250%22 y=%2258%22 font-size=%2224%22 text-anchor=%22middle%22 fill=%22%23FFF6E5%22 font-family=%22sans-serif%22 font-weight=%22bold%22>बो</text></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            marigold: {
+              50: '#FFF8ED',
+              100: '#FFF0D4',
+              200: '#FEDCA3',
+              400: '#F7A738',
+              500: '#F28C1B',
+              600: '#D9730D',
+              700: '#B25605',
+            },
+            maroon: {
+              50: '#FDF2F4',
+              100: '#FBE4E8',
+              500: '#A32A39',
+              700: '#7A1F2B',
+              800: '#5C141E',
+              900: '#3D0B12',
+              950: '#26070B',
+            },
+            leaf: {
+              50: '#F2F8F3',
+              100: '#E2F0E4',
+              600: '#3E7C4A',
+              700: '#31633B',
+              800: '#254A2C',
+            },
+            cream: {
+              DEFAULT: '#FFF6E5',
+              card: '#FFFDF9',
+              border: '#EAD9C2'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Google Fonts: Baloo 2 (with safe local/system fallback) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Handcrafted Indian Marigold & Rangoli Design System */
+    :root {
+      --font-stack: 'Baloo 2', 'Nirmala UI', 'Lohit Devanagari', 'Mangal', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --bg-cream: #FFF6E5;
+      --marigold: #F28C1B;
+      --marigold-dark: #D9730D;
+      --maroon: #7A1F2B;
+      --maroon-deep: #2A080D;
+      --leaf: #3E7C4A;
+      --paper: #FFFDF9;
+      --paper-border: #E8D5BC;
+    }
+
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--bg-cream);
+      color: #381217;
+      /* Subtle Repeating Rangoli / Mandala Pattern in Marigold & Maroon */
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%237A1F2B' fill-opacity='0.032' fill-rule='evenodd'%3E%3Cpath d='M40 0l4 16 16-4-4 16 16 4-16 4 4 16-16-4-4 16-4-16-16 4 4-16-16-4 16-4-4-16 16 4zM40 26a14 14 0 1 0 0 28 14 14 0 0 0 0-28zm0 5a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10z'/%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='80' cy='0' r='6'/%3E%3Ccircle cx='0' cy='80' r='6'/%3E%3Ccircle cx='80' cy='80' r='6'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Matching Dark Mode: Deep Maroon with Golden Patterns */
+    .dark body {
+      background-color: #26070B;
+      color: #FFF2DB;
+      background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23F28C1B' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M40 0l4 16 16-4-4 16 16 4-16 4 4 16-16-4-4 16-4-16-16 4 4-16-16-4 16-4-4-16 16 4zM40 26a14 14 0 1 0 0 28 14 14 0 0 0 0-28zm0 5a9 9 0 1 1 0 18 9 9 0 0 1 0-18zm0 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10z'/%3E%3Ccircle cx='0' cy='0' r='6'/%3E%3Ccircle cx='80' cy='0' r='6'/%3E%3Ccircle cx='0' cy='80' r='6'/%3E%3Ccircle cx='80' cy='80' r='6'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    /* Handcrafted Paper Cards (clean, thin hand-drawn feel, slight warm shadow) */
+    .marigold-card {
+      background-color: #FFFDF9;
+      border: 1.5px solid #EAD8C1;
+      border-radius: 20px;
+      box-shadow: 0 4px 18px -2px rgba(122, 31, 43, 0.05), 0 1px 3px rgba(122, 31, 43, 0.03);
+      transition: all 0.2s ease;
+    }
+
+    .marigold-card:hover {
+      box-shadow: 0 8px 24px -4px rgba(122, 31, 43, 0.08), 0 2px 6px rgba(122, 31, 43, 0.04);
+    }
+
+    .dark .marigold-card {
+      background-color: #350D13;
+      border-color: #571C23;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Festive Marigold Button */
+    .btn-marigold {
+      background: linear-gradient(135deg, #F28C1B 0%, #D9730D 100%);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(242, 140, 27, 0.35);
+      transition: all 0.2s ease;
+    }
+    .btn-marigold:hover {
+      background: linear-gradient(135deg, #E07A0B 0%, #C26305 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(242, 140, 27, 0.45);
+    }
+    .btn-marigold:active {
+      transform: translateY(0);
+    }
+
+    /* Badges with warm festive pulse */
+    @keyframes leafGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(62, 124, 74, 0.2); }
+      50% { box-shadow: 0 0 18px rgba(62, 124, 74, 0.4); }
+    }
+    @keyframes marigoldGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(242, 140, 27, 0.2); }
+      50% { box-shadow: 0 0 18px rgba(242, 140, 27, 0.4); }
+    }
+    .badge-on-device { animation: leafGlow 2.5s infinite; }
+    .badge-cloud { animation: marigoldGlow 2.5s infinite; }
+
+    /* Custom audio recording wave */
+    @keyframes micWave {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+    .recording-pulse { animation: micWave 1.1s infinite ease-in-out; }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #E6CEB3; border-radius: 9999px; }
+    .dark ::-webkit-scrollbar-thumb { background: #5E2028; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col transition-colors duration-200 relative selection:bg-marigold-200 selection:text-maroon-900">
+
+  <!-- ================= SCATTERED MARIGOLD CORNERS (100% Offline Inline SVG) ================= -->
+  <!-- Top-Left Marigold Corner -->
+  <div class="fixed top-0 left-0 pointer-events-none z-0 opacity-80 dark:opacity-40 hidden sm:block" aria-hidden="true">
+    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Leaves -->
+      <path d="M12 45C5 20 30 10 50 15C35 30 30 45 12 45Z" fill="#3E7C4A" fill-opacity="0.85"/>
+      <path d="M45 12C20 5 10 30 15 50C30 35 45 30 45 12Z" fill="#31633B" fill-opacity="0.85"/>
+      <!-- Flower 1 (Large Marigold) -->
+      <g transform="translate(42, 42)">
+        <!-- Outer petals -->
+        <circle cx="0" cy="0" r="28" fill="#F28C1B"/>
+        <path d="M0 -30C8 -30 12 -22 18 -26C24 -30 30 -22 30 -14C30 -6 24 -2 28 4C32 10 26 18 24 24C22 30 14 30 8 30C2 30 -2 24 -8 28C-14 32 -22 26 -26 20C-30 14 -24 8 -28 0C-32 -8 -26 -16 -20 -22C-14 -28 -6 -30 0 -30Z" fill="#E07A0B"/>
+        <!-- Mid petals -->
+        <circle cx="0" cy="0" r="20" fill="#F7A738"/>
+        <!-- Inner orange petals -->
+        <circle cx="0" cy="0" r="14" fill="#FFA938"/>
+        <!-- Center core (Maroon) -->
+        <circle cx="0" cy="0" r="7" fill="#7A1F2B"/>
+        <circle cx="0" cy="0" r="3" fill="#F28C1B"/>
+      </g>
+      <!-- Small Blossom -->
+      <g transform="translate(95, 22)">
+        <circle cx="0" cy="0" r="14" fill="#F28C1B"/>
+        <circle cx="0" cy="0" r="9" fill="#FFC107"/>
+        <circle cx="0" cy="0" r="4" fill="#7A1F2B"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Top-Right Marigold Corner -->
+  <div class="fixed top-0 right-0 pointer-events-none z-0 opacity-80 dark:opacity-40 hidden sm:block" aria-hidden="true">
+    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Leaves -->
+      <path d="M128 45C135 20 110 10 90 15C105 30 110 45 128 45Z" fill="#3E7C4A" fill-opacity="0.85"/>
+      <path d="M95 12C120 5 130 30 125 50C110 35 95 30 95 12Z" fill="#31633B" fill-opacity="0.85"/>
+      <!-- Flower (Large Marigold) -->
+      <g transform="translate(98, 42)">
+        <circle cx="0" cy="0" r="28" fill="#F28C1B"/>
+        <path d="M0 -30C8 -30 12 -22 18 -26C24 -30 30 -22 30 -14C30 -6 24 -2 28 4C32 10 26 18 24 24C22 30 14 30 8 30C2 30 -2 24 -8 28C-14 32 -22 26 -26 20C-30 14 -24 8 -28 0C-32 -8 -26 -16 -20 -22C-14 -28 -6 -30 0 -30Z" fill="#E07A0B"/>
+        <circle cx="0" cy="0" r="20" fill="#F7A738"/>
+        <circle cx="0" cy="0" r="14" fill="#FFA938"/>
+        <circle cx="0" cy="0" r="7" fill="#7A1F2B"/>
+        <circle cx="0" cy="0" r="3" fill="#F28C1B"/>
+      </g>
+      <!-- Small Blossom -->
+      <g transform="translate(45, 22)">
+        <circle cx="0" cy="0" r="14" fill="#F28C1B"/>
+        <circle cx="0" cy="0" r="9" fill="#FFC107"/>
+        <circle cx="0" cy="0" r="4" fill="#7A1F2B"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Bottom-Left Marigold Accent -->
+  <div class="fixed bottom-0 left-0 pointer-events-none z-0 opacity-70 dark:opacity-30 hidden sm:block" aria-hidden="true">
+    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 50C5 75 35 85 55 80C35 65 30 50 10 50Z" fill="#3E7C4A"/>
+      <g transform="translate(40, 60)">
+        <circle cx="0" cy="0" r="22" fill="#F28C1B"/>
+        <circle cx="0" cy="0" r="15" fill="#F7A738"/>
+        <circle cx="0" cy="0" r="10" fill="#FFA938"/>
+        <circle cx="0" cy="0" r="5" fill="#7A1F2B"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Bottom-Right Marigold Accent -->
+  <div class="fixed bottom-0 right-0 pointer-events-none z-0 opacity-70 dark:opacity-30 hidden sm:block" aria-hidden="true">
+    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M90 50C95 75 65 85 45 80C65 65 70 50 90 50Z" fill="#3E7C4A"/>
+      <g transform="translate(60, 60)">
+        <circle cx="0" cy="0" r="22" fill="#F28C1B"/>
+        <circle cx="0" cy="0" r="15" fill="#F7A738"/>
+        <circle cx="0" cy="0" r="10" fill="#FFA938"/>
+        <circle cx="0" cy="0" r="5" fill="#7A1F2B"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ================= FESTIVE HEADER WITH MARIGOLD EMBLEM ================= -->
+  <header class="border-b border-[#EAD8C1] dark:border-[#541922] bg-[#FFFDF9]/95 dark:bg-[#300C11]/95 backdrop-blur-md shadow-sm sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4">
+      
+      <!-- Top Row: Brand & System Pills -->
+      <div class="h-16 flex items-center justify-between">
+        
+        <!-- Brand Logo: Marigold Flower with Speech Bubble in Center -->
+        <div class="flex items-center space-x-3.5">
+          <div class="w-11 h-11 rounded-2xl flex items-center justify-center shadow-md shadow-marigold-500/20 transform transition hover:scale-105" title="BolTranslate Marigold Logo">
+            <!-- Custom Marigold Flower with Speech Bubble SVG -->
+            <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Leaf Base -->
+              <path d="M8 36C2 28 10 20 18 24C12 30 12 34 8 36Z" fill="#3E7C4A"/>
+              <path d="M36 36C42 28 34 20 26 24C32 30 32 34 36 36Z" fill="#31633B"/>
+              <!-- Marigold Petals Cluster -->
+              <circle cx="22" cy="22" r="19" fill="#D9730D"/>
+              <circle cx="22" cy="22" r="17" fill="#F28C1B"/>
+              <!-- Detailed radiating petal scalloping -->
+              <path d="M22 3C25 3 26 6 29 5C32 4 34 8 36 10C38 12 42 14 43 17C44 20 41 22 41 25C41 28 44 30 43 33C42 36 38 38 36 40C34 42 32 40 29 42C26 44 25 41 22 41C19 41 18 44 15 42C12 40 10 42 8 40C6 38 2 36 1 33C0 30 3 28 3 25C3 22 0 20 1 17C2 14 6 12 8 10C10 8 12 4 15 5C18 6 19 3 22 3Z" fill="#F7A738"/>
+              <circle cx="22" cy="22" r="14" fill="#FFA938"/>
+              <circle cx="22" cy="22" r="11" fill="#7A1F2B"/>
+              <!-- Speech Bubble in Center -->
+              <path d="M16 16C16 13.7909 17.7909 12 20 12H24C26.2091 12 28 13.7909 28 16V21C28 23.2091 26.2091 25 24 25H21L18 28V25H20C17.7909 25 16 23.2091 16 21V16Z" fill="#FFFDF9"/>
+              <!-- Small sound dot inside speech bubble -->
+              <circle cx="22" cy="18.5" r="2" fill="#7A1F2B"/>
+            </svg>
+          </div>
+
+          <div>
+            <div class="flex items-center space-x-2">
+              <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-maroon-700 dark:text-amber-200">
+                Bol<span class="text-marigold-500">Translate</span>
+              </h1>
+              <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-marigold-100 text-maroon-700 dark:bg-maroon-900 dark:text-amber-300 border border-marigold-200 dark:border-maroon-700">
+                Hybrid AI
+              </span>
+            </div>
+            <p class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-semibold">On-Device Gemini Nano + Cloud Gemini • 100% Offline</p>
+          </div>
+        </div>
+
+        <!-- System Controls (Leaf Green Online & Plane Switch) -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          <!-- Leaf Green Network State Pill -->
+          <div id="networkPill" class="flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#EAF4EC] text-[#2C6237] border border-[#BBDCBE] dark:bg-[#193820] dark:text-[#86D495] dark:border-[#2D6136]">
+            <span class="w-2 h-2 rounded-full bg-[#3E7C4A] animate-pulse"></span>
+            <span id="networkStatusText">Online</span>
+          </div>
+
+          <!-- Simulated Airplane Mode Button (SVG icon replacing emoji) -->
+          <button id="toggleAirplaneBtn" title="Simulate offline mode to demonstrate on-device edge AI" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-marigold-50 hover:bg-marigold-100 text-maroon-700 dark:bg-maroon-900/60 dark:hover:bg-maroon-800 dark:text-amber-200 transition-all border border-marigold-200 dark:border-maroon-700">
+            <!-- Inline SVG Plane Icon -->
+            <svg class="w-3.5 h-3.5 text-marigold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3.5c-.5-.5-2.5 0-4 1.5L13.5 8.5 5.3 6.7c-.8-.2-1.6.2-2 1-.4.8-.2 1.8.5 2.3l4.7 3.5-2 2-2.5-.5c-.5-.1-1 .1-1.3.5-.3.4-.3 1 0 1.4l2.5 2.5 2.5 2.5c.4.3 1 .3 1.4 0 .4-.3.6-.8.5-1.3l-.5-2.5 2-2 3.5 4.7c.5.7 1.5.9 2.3.5.8-.4 1.2-1.2 1-2z"/>
+            </svg>
+            <span id="airplaneBtnLabel">Airplane Mode: Off</span>
+          </button>
+
+          <!-- Theme Toggle (Moon / Sun) -->
+          <button id="themeToggleBtn" title="Toggle Festive Day / Deep Maroon Night" class="p-2 rounded-xl text-maroon-700 hover:text-maroon-900 dark:text-amber-200 dark:hover:text-amber-100 hover:bg-marigold-100 dark:hover:bg-maroon-900 transition">
+            <i data-lucide="moon" id="themeIcon" class="w-4 h-4"></i>
+          </button>
+
+          <!-- Settings Button -->
+          <button id="openSettingsBtn" title="Engine Settings & API Keys" class="p-2 rounded-xl text-maroon-700 hover:text-maroon-900 dark:text-amber-200 dark:hover:text-amber-100 hover:bg-marigold-100 dark:hover:bg-maroon-900 transition">
+            <i data-lucide="sliders" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Persistent Sub-Bar: Navigation Tabs (Styled with Handcrafted Terracotta/Marigold) -->
+      <div class="flex space-x-1.5 border-t border-[#EAD8C1]/80 dark:border-maroon-800/80 py-2 overflow-x-auto">
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center space-x-2 bg-marigold-500 text-white shadow-sm transition" data-tab="studioTab">
+          <i data-lucide="languages" class="w-4 h-4"></i>
+          <span>Translation Studio</span>
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center space-x-2 text-maroon-700 dark:text-amber-200 hover:bg-marigold-100 dark:hover:bg-maroon-900 transition" data-tab="conversationTab">
+          <i data-lucide="messages-square" class="w-4 h-4"></i>
+          <span>Face-to-Face Conversation</span>
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center space-x-2 text-maroon-700 dark:text-amber-200 hover:bg-marigold-100 dark:hover:bg-maroon-900 transition" data-tab="telemetryTab">
+          <i data-lucide="activity" class="w-4 h-4"></i>
+          <span>Hybrid Telemetry & Cost Savings</span>
+        </button>
+        <button class="tab-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold flex items-center space-x-2 text-maroon-700 dark:text-amber-200 hover:bg-marigold-100 dark:hover:bg-maroon-900 transition" data-tab="historyTab">
+          <i data-lucide="history" class="w-4 h-4"></i>
+          <span>History</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN BODY CONTENT ================= -->
+  <main class="max-w-6xl mx-auto px-4 py-6 w-full flex-1 relative z-10">
+    
+    <!-- ================= TAB 1: TRANSLATION STUDIO ================= -->
+    <div id="studioTab" class="tab-content space-y-5">
+      
+      <!-- Handcrafted Routing Bar -->
+      <div class="marigold-card p-4 flex flex-col md:flex-row items-center justify-between gap-3">
+        <div class="flex items-center space-x-3 w-full md:w-auto">
+          <!-- Small Rangoli / Flower Icon -->
+          <div class="w-10 h-10 rounded-xl bg-marigold-100 dark:bg-maroon-900 text-marigold-600 dark:text-amber-300 flex items-center justify-center font-bold">
+            <svg class="w-5 h-5 text-marigold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v4m0 12v4M2 12h4m12 0h4m-3.17-6.83l-2.83 2.83m-8 8l-2.83 2.83m0-13.66l2.83 2.83m8 8l2.83 2.83"/>
+            </svg>
+          </div>
+          <div>
+            <div class="text-sm font-extrabold text-maroon-700 dark:text-amber-200">Smart Hybrid Routing Engine</div>
+            <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-semibold">Short phrases (≤15 words) & offline run on-device. Complex text scales to Cloud Gemini.</div>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-2 w-full md:w-auto justify-end">
+          <label class="text-xs font-bold text-maroon-700 dark:text-amber-200">Policy:</label>
+          <select id="routingPolicySelect" class="bg-marigold-50/70 dark:bg-maroon-900 border border-[#EAD8C1] dark:border-maroon-700 text-xs font-bold rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-marigold-500 text-maroon-800 dark:text-amber-100 cursor-pointer">
+            <option value="auto">⚡ Auto Hybrid (Smart Routing)</option>
+            <option value="ondevice">🔒 Force On-Device (Gemini Nano / Edge)</option>
+            <option value="cloud">☁️ Force Cloud (Gemini 1.5 Flash)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Quick Test Presets (With Custom Inline SVG Icons Replacing Emojis) -->
+      <div class="flex flex-wrap items-center gap-2 pt-1">
+        <span class="text-xs font-extrabold text-maroon-700/70 dark:text-amber-300 uppercase tracking-wider">Try Examples:</span>
+        
+        <!-- Travel Phrase (Leaf Green Theme) -->
+        <button class="preset-btn text-xs px-3.5 py-1.5 rounded-full bg-[#EAF4EC] text-[#2C6237] hover:bg-[#DDF0E0] transition border border-[#BBDCBE] font-bold flex items-center space-x-1.5" data-text="कहाँ जाना है भाई? मुझे नई दिल्ली रेलवे स्टेशन जाना है।" data-src="hi" data-target="en">
+          <!-- Waypoint Pin SVG -->
+          <svg class="w-3.5 h-3.5 text-[#3E7C4A]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Travel Phrase (Short / On-Device)</span>
+        </button>
+
+        <!-- Emergency / Medical (Maroon Theme) -->
+        <button class="preset-btn text-xs px-3.5 py-1.5 rounded-full bg-maroon-50 text-maroon-700 hover:bg-maroon-100 transition border border-maroon-200 font-bold flex items-center space-x-1.5" data-text="मुझे सीने में दर्द है, कृपया तुरंत डॉक्टर को बुलाएं।" data-src="hi" data-target="en">
+          <!-- Heartbeat Shield SVG -->
+          <svg class="w-3.5 h-3.5 text-maroon-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Medical Emergency (On-Device)</span>
+        </button>
+
+        <!-- Complex Paragraph (Marigold Theme) -->
+        <button class="preset-btn text-xs px-3.5 py-1.5 rounded-full bg-marigold-50 text-marigold-700 hover:bg-marigold-100 transition border border-marigold-200 font-bold flex items-center space-x-1.5" data-text="कृत्रिम बुद्धिमत्ता और हाइब्रिड कंप्यूटिंग तकनीक आने वाले समय में दूरदराज के क्षेत्रों में इंटरनेट की कमी को पूरा कर सकती है। यह तकनीक उपयोगकर्ताओं के गोपनीय डेटा को बिना किसी बाहरी सर्वर पर भेजे स्थानीय स्तर पर सुरक्षित रखती है।" data-src="hi" data-target="en">
+          <!-- Book Scroll SVG -->
+          <svg class="w-3.5 h-3.5 text-marigold-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Complex Paragraph (>15 Words / Cloud)</span>
+        </button>
+
+        <!-- Indian Idiom (Golden Diya Theme) -->
+        <button class="preset-btn text-xs px-3.5 py-1.5 rounded-full bg-[#FFF9E6] text-[#8C6D07] hover:bg-[#FFF3CC] transition border border-[#F5E296] font-bold flex items-center space-x-1.5" data-text="नाच न जाने आँगन टेढ़ा।" data-src="hi" data-target="en">
+          <!-- Traditional Diya / Flame SVG -->
+          <svg class="w-3.5 h-3.5 text-[#D97706]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 2c.5 3 2.5 5 2.5 7.5a2.5 2.5 0 0 1-5 0C9.5 7 11.5 5 12 2z"/><path d="M4 14c0 4.4 3.6 8 8 8s8-3.6 8-8H4z"/></svg>
+          <span>Indian Idiom</span>
+        </button>
+      </div>
+
+      <!-- Main Translation Studio Cards (Handcrafted Paper Style) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        
+        <!-- Input Card -->
+        <div class="marigold-card overflow-hidden flex flex-col min-h-[310px]">
+          <!-- Card Header -->
+          <div class="px-5 py-3.5 border-b border-[#EAD8C1] dark:border-maroon-800 flex items-center justify-between bg-marigold-50/40 dark:bg-maroon-900/30">
+            <div class="flex items-center space-x-2.5">
+              <span class="text-xs font-extrabold text-maroon-700/70 dark:text-amber-200/70 uppercase tracking-wide">From</span>
+              <select id="sourceLang" class="bg-transparent text-sm font-extrabold text-maroon-800 dark:text-amber-100 focus:outline-none cursor-pointer">
+                <option value="hi">Hindi (हिंदी)</option>
+                <option value="en">English</option>
+                <option value="es">Spanish (Español)</option>
+                <option value="fr">French (Français)</option>
+                <option value="de">German (Deutsch)</option>
+                <option value="ja">Japanese (日本語)</option>
+              </select>
+            </div>
+            
+            <button id="swapLanguagesBtn" title="Swap languages" class="p-2 rounded-xl hover:bg-marigold-100 dark:hover:bg-maroon-800 text-maroon-700 dark:text-amber-200 transition">
+              <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Input Textarea -->
+          <div class="relative flex-1 p-5">
+            <textarea id="inputText" rows="6" placeholder="Type or speak in Hindi or English... (उदा: 'नमस्ते, आप कैसे हैं?' या 'तो कैसा है?')" class="w-full h-full bg-transparent resize-none focus:outline-none text-base text-maroon-900 dark:text-amber-100 placeholder-maroon-700/40 dark:placeholder-amber-200/40 font-semibold leading-relaxed"></textarea>
+          </div>
+
+          <!-- Card Footer Tools -->
+          <div class="px-5 py-3.5 border-t border-[#EAD8C1] dark:border-maroon-800 flex items-center justify-between text-xs text-maroon-700 dark:text-amber-200 bg-marigold-50/30 dark:bg-maroon-900/20">
+            <div class="flex items-center space-x-3">
+              <!-- Mic Button (Speech-to-Text) -->
+              <button id="micInputBtn" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-xl bg-marigold-100 hover:bg-marigold-200 dark:bg-maroon-800 dark:hover:bg-maroon-700 text-maroon-800 dark:text-amber-200 transition font-bold border border-marigold-200 dark:border-maroon-700">
+                <i data-lucide="mic" class="w-4 h-4 text-marigold-600"></i>
+                <span id="micStatusText">Speak</span>
+              </button>
+              <button id="clearInputBtn" class="hover:text-red-700 transition font-bold">Clear</button>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <span id="wordCountLabel" class="font-extrabold text-maroon-800 dark:text-amber-200">0 words</span>
+              <span class="text-marigold-300 dark:text-maroon-700">•</span>
+              <span id="charCountLabel" class="font-semibold">0 chars</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Card -->
+        <div class="marigold-card overflow-hidden flex flex-col min-h-[310px]">
+          <!-- Card Header -->
+          <div class="px-5 py-3.5 border-b border-[#EAD8C1] dark:border-maroon-800 flex items-center justify-between bg-marigold-50/40 dark:bg-maroon-900/30">
+            <div class="flex items-center space-x-2.5">
+              <span class="text-xs font-extrabold text-maroon-700/70 dark:text-amber-200/70 uppercase tracking-wide">To</span>
+              <select id="targetLang" class="bg-transparent text-sm font-extrabold text-maroon-800 dark:text-amber-100 focus:outline-none cursor-pointer">
+                <option value="en">English</option>
+                <option value="hi">Hindi (हिंदी)</option>
+                <option value="es">Spanish (Español)</option>
+                <option value="fr">French (Français)</option>
+                <option value="de">German (Deutsch)</option>
+                <option value="ja">Japanese (日本語)</option>
+              </select>
+            </div>
+
+            <!-- Dynamic Execution Engine Badge -->
+            <div id="executionBadge" class="hidden text-xs font-bold px-3 py-1 rounded-full flex items-center space-x-1.5">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Output Text Box -->
+          <div class="relative flex-1 p-5 flex flex-col justify-between min-h-[160px]">
+            <div id="outputContainer" class="text-lg text-maroon-900 dark:text-amber-100 leading-relaxed font-extrabold">
+              <span class="text-maroon-700/40 dark:text-amber-200/40 italic font-medium text-base">Translation will appear here...</span>
+            </div>
+
+            <!-- Telemetry Bar -->
+            <div id="telemetryBar" class="hidden mt-4 pt-3 border-t border-[#EAD8C1] dark:border-maroon-800 text-xs text-maroon-700 dark:text-amber-200 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center space-x-3">
+                <span id="latencyMetric" class="font-extrabold text-[#3E7C4A] dark:text-[#86D495]">⚡ Latency: 16ms</span>
+                <span>•</span>
+                <span id="privacyMetric" class="text-maroon-700 dark:text-amber-200 font-semibold">🔒 100% Private (0 bytes sent)</span>
+              </div>
+              <span id="routingReasonMetric" class="italic text-maroon-700/60 dark:text-amber-200/60">Triggered by: Short text (≤15 words)</span>
+            </div>
+          </div>
+
+          <!-- Card Actions Footer -->
+          <div class="px-5 py-3.5 border-t border-[#EAD8C1] dark:border-maroon-800 flex items-center justify-between text-xs text-maroon-700 dark:text-amber-200 bg-marigold-50/30 dark:bg-maroon-900/20">
+            <div class="flex items-center space-x-2">
+              <!-- Audio Listen Button -->
+              <button id="speakOutputBtn" title="Listen to translation pronunciation" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-marigold-100 hover:bg-marigold-200 dark:bg-maroon-800 dark:hover:bg-maroon-700 text-maroon-800 dark:text-amber-200 transition font-bold border border-marigold-200 dark:border-maroon-700">
+                <i data-lucide="volume-2" class="w-4 h-4 text-marigold-600"></i>
+                <span>Listen</span>
+              </button>
+              <!-- Copy Button -->
+              <button id="copyOutputBtn" title="Copy translation to clipboard" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-marigold-100 hover:bg-marigold-200 dark:bg-maroon-800 dark:hover:bg-maroon-700 text-maroon-800 dark:text-amber-200 transition font-bold border border-marigold-200 dark:border-maroon-700">
+                <i data-lucide="copy" class="w-4 h-4 text-maroon-700 dark:text-amber-200"></i>
+                <span id="copyBtnLabel">Copy</span>
+              </button>
+              <button id="favoriteBtn" title="Save to favorites" class="p-2 rounded-xl hover:bg-marigold-100 dark:hover:bg-maroon-800 text-maroon-700 dark:text-amber-200 transition">
+                <i data-lucide="star" class="w-4 h-4"></i>
+              </button>
+            </div>
+
+            <!-- Translate Action Trigger (Vibrant Marigold Button) -->
+            <button id="translateActionBtn" class="btn-marigold px-6 py-2.5 rounded-2xl font-extrabold text-sm flex items-center space-x-2">
+              <!-- Small festive sparkles SVG -->
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/>
+              </svg>
+              <span>Translate Now</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= TAB 2: CONVERSATION MODE ================= -->
+    <div id="conversationTab" class="tab-content hidden space-y-6">
+      <div class="marigold-card p-6">
+        <div class="max-w-2xl mx-auto text-center mb-6">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-maroon-800 dark:text-amber-100">Face-to-Face Bilingual Conversation</h2>
+          <p class="text-sm text-maroon-700/80 dark:text-amber-200/80 mt-1 font-semibold">Speak naturally in your language. BolTranslate translates and automatically pronounces the speech in real-time.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+          <!-- Person 1 (Hindi) -->
+          <div class="p-6 rounded-3xl border-2 border-[#3E7C4A]/30 bg-[#EAF4EC]/40 dark:bg-emerald-950/20 flex flex-col items-center text-center space-y-4">
+            <!-- Custom Hindi Emblem Icon SVG -->
+            <div class="w-14 h-14 rounded-2xl bg-[#EAF4EC] text-[#2C6237] border border-[#BBDCBE] flex items-center justify-center font-extrabold text-xl shadow-sm">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="14" fill="#F28C1B"/>
+                <circle cx="16" cy="16" r="8" fill="#FFFDF9"/>
+                <circle cx="16" cy="16" r="3" fill="#7A1F2B"/>
+              </svg>
+            </div>
+            <div>
+              <div class="font-extrabold text-base text-maroon-800 dark:text-amber-100">Speaker 1: Hindi (हिंदी)</div>
+              <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-semibold">Tap microphone to speak Hindi</div>
+            </div>
+            <button id="convoMicHi" class="w-16 h-16 rounded-2xl bg-[#3E7C4A] hover:bg-[#31633B] text-white shadow-lg shadow-[#3E7C4A]/30 flex items-center justify-center transition transform active:scale-95">
+              <i data-lucide="mic" class="w-8 h-8"></i>
+            </button>
+            <div id="convoStatusHi" class="text-xs text-[#2C6237] dark:text-[#86D495] font-extrabold">Ready to listen</div>
+          </div>
+
+          <!-- Person 2 (English) -->
+          <div class="p-6 rounded-3xl border-2 border-marigold-500/30 bg-marigold-50/40 dark:bg-maroon-950/20 flex flex-col items-center text-center space-y-4">
+            <!-- Custom English Globe Emblem SVG -->
+            <div class="w-14 h-14 rounded-2xl bg-marigold-100 text-marigold-700 border border-marigold-200 flex items-center justify-center font-extrabold text-xl shadow-sm">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="14" fill="#7A1F2B"/>
+                <circle cx="16" cy="16" r="8" fill="#FFFDF9"/>
+                <circle cx="16" cy="16" r="3" fill="#F28C1B"/>
+              </svg>
+            </div>
+            <div>
+              <div class="font-extrabold text-base text-maroon-800 dark:text-amber-100">Speaker 2: English</div>
+              <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-semibold">Tap microphone to speak English</div>
+            </div>
+            <button id="convoMicEn" class="w-16 h-16 rounded-2xl bg-marigold-500 hover:bg-marigold-600 text-white shadow-lg shadow-marigold-500/30 flex items-center justify-center transition transform active:scale-95">
+              <i data-lucide="mic" class="w-8 h-8"></i>
+            </button>
+            <div id="convoStatusEn" class="text-xs text-marigold-600 dark:text-amber-300 font-extrabold">Ready to listen</div>
+          </div>
+        </div>
+
+        <!-- Conversation Feed -->
+        <div id="convoFeed" class="max-w-3xl mx-auto mt-8 space-y-4 min-h-[200px] max-h-[350px] overflow-y-auto p-4 rounded-2xl bg-marigold-50/50 dark:bg-maroon-950/40 border border-[#EAD8C1] dark:border-maroon-800">
+          <div class="text-center text-xs text-maroon-700/60 dark:text-amber-200/60 italic py-4 font-semibold">Conversation transcripts will appear here...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 3: TELEMETRY & COST DASHBOARD ================= -->
+    <div id="telemetryTab" class="tab-content hidden space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="marigold-card p-5">
+          <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-extrabold uppercase tracking-wide">Total Inferences</div>
+          <div id="metricTotalInferences" class="text-3xl font-extrabold mt-1 text-maroon-800 dark:text-amber-100">0</div>
+          <div class="text-xs text-[#2C6237] dark:text-[#86D495] font-bold mt-1">100% Reliable Execution</div>
+        </div>
+        <div class="marigold-card p-5">
+          <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-extrabold uppercase tracking-wide">On-Device Edge Ratio</div>
+          <div id="metricOnDeviceRatio" class="text-3xl font-extrabold mt-1 text-[#2C6237] dark:text-[#86D495]">0%</div>
+          <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-semibold mt-1">Sub-20ms private edge</div>
+        </div>
+        <div class="marigold-card p-5">
+          <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-extrabold uppercase tracking-wide">Est. Cloud Cost Saved</div>
+          <div id="metricCostSaved" class="text-3xl font-extrabold mt-1 text-marigold-600 dark:text-amber-300">$0.00</div>
+          <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-semibold mt-1">Based on Gemini token metrics</div>
+        </div>
+        <div class="marigold-card p-5">
+          <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-extrabold uppercase tracking-wide">Avg Latency Benchmark</div>
+          <div id="metricAvgLatency" class="text-3xl font-extrabold mt-1 text-maroon-800 dark:text-amber-100">0ms</div>
+          <div class="text-xs text-maroon-700/70 dark:text-amber-200/70 font-semibold mt-1">Edge: ~16ms | Cloud: ~350ms</div>
+        </div>
+      </div>
+
+      <!-- Architecture Breakdown -->
+      <div class="marigold-card p-6">
+        <h3 class="text-base font-extrabold mb-4 flex items-center space-x-2 text-maroon-800 dark:text-amber-100">
+          <i data-lucide="git-branch" class="w-5 h-5 text-marigold-600"></i>
+          <span>Hybrid Inference Routing Architecture</span>
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-semibold">
+          <div class="p-4 rounded-xl bg-marigold-50/60 dark:bg-maroon-900/40 border border-[#EAD8C1] dark:border-maroon-800">
+            <div class="font-extrabold text-maroon-800 dark:text-amber-200 mb-2">1. Request Ingestion</div>
+            <p class="text-maroon-700/80 dark:text-amber-200/80 leading-relaxed">User types or speaks Hindi/English text. The client parser evaluates token length, language pair, and live network status (`navigator.onLine`).</p>
+          </div>
+          <div class="p-4 rounded-xl bg-[#EAF4EC]/60 dark:bg-emerald-950/20 border border-[#BBDCBE] dark:border-emerald-800">
+            <div class="font-extrabold text-[#2C6237] dark:text-[#86D495] mb-2">2. Local Edge Router (Nano)</div>
+            <p class="text-[#2C6237]/90 dark:text-emerald-300 leading-relaxed">If offline or ≤15 words: Executed locally via Chrome Built-in AI (Gemini Nano) / local inference engine. Zero cloud egress, 100% privacy, ~16ms latency.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-marigold-50/70 dark:bg-amber-950/20 border border-marigold-200 dark:border-amber-800">
+            <div class="font-extrabold text-marigold-700 dark:text-amber-300 mb-2">3. Cloud Scaler (Gemini 1.5)</div>
+            <p class="text-maroon-700/80 dark:text-amber-200/80 leading-relaxed">If online and complex (>15 words or multi-paragraph): Routes to Google Gemini API via Firebase AI Logic for nuanced context, idiom translation, and accuracy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= TAB 4: HISTORY ================= -->
+    <div id="historyTab" class="tab-content hidden space-y-4">
+      <div class="marigold-card p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-extrabold text-maroon-800 dark:text-amber-100">Recent Translations</h3>
+          <button id="clearHistoryBtn" class="text-xs text-red-600 hover:text-red-800 font-extrabold">Clear All</button>
+        </div>
+        <div id="historyList" class="space-y-3">
+          <div class="text-center text-xs text-maroon-700/60 dark:text-amber-200/60 italic py-8 font-semibold">No translations yet. Start translating in the studio!</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= SETTINGS MODAL ================= -->
+  <div id="settingsModal" class="fixed inset-0 bg-maroon-950/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] dark:bg-[#320C11] rounded-3xl border border-[#EAD8C1] dark:border-maroon-700 max-w-md w-full p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-[#EAD8C1] dark:border-maroon-700">
+        <h3 class="text-lg font-extrabold text-maroon-800 dark:text-amber-100">Engine & Settings</h3>
+        <button id="closeSettingsBtn" class="text-maroon-700/60 hover:text-maroon-900 dark:text-amber-200">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 py-4 text-xs font-semibold">
+        <div>
+          <label class="block font-bold mb-1 text-maroon-800 dark:text-amber-200">Google Gemini API Key (Optional)</label>
+          <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy... (leave blank to use auto cloud engine)" class="w-full px-3 py-2 rounded-xl bg-marigold-50/60 dark:bg-maroon-900 border border-[#EAD8C1] dark:border-maroon-700 text-sm focus:outline-none focus:ring-2 focus:ring-marigold-500 text-maroon-900 dark:text-amber-100">
+          <p class="text-[11px] text-maroon-700/60 dark:text-amber-200/60 mt-1">Stored securely in your browser's local storage.</p>
+        </div>
+
+        <div>
+          <label class="block font-bold mb-1 text-maroon-800 dark:text-amber-200">Hybrid Threshold (Word Count)</label>
+          <div class="flex items-center space-x-3">
+            <input type="range" id="thresholdSlider" min="5" max="30" value="15" class="flex-1 accent-marigold-500">
+            <span id="thresholdValue" class="font-extrabold text-sm w-8 text-marigold-600">15</span>
+          </div>
+          <p class="text-[11px] text-maroon-700/60 dark:text-amber-200/60 mt-1">Sentences with fewer words will automatically run on-device.</p>
+        </div>
+
+        <div class="p-3 rounded-2xl bg-marigold-50/60 dark:bg-maroon-900/60 border border-[#EAD8C1] dark:border-maroon-700">
+          <div class="font-bold text-maroon-800 dark:text-amber-200 mb-1">Chrome Built-in AI Status</div>
+          <div id="nanoDetectStatus" class="text-maroon-700/70 dark:text-amber-200/70">Checking browser capability...</div>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-[#EAD8C1] dark:border-maroon-700 flex justify-end">
+        <button id="saveSettingsBtn" class="btn-marigold px-5 py-2 rounded-xl font-bold text-xs shadow-sm">Save & Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FESTIVE INDIAN FOOTER ================= -->
+  <footer class="border-t border-[#EAD8C1] dark:border-[#541922] py-4 bg-[#FFFDF9]/80 dark:bg-[#300C11]/80 text-center text-xs text-maroon-800/80 dark:text-amber-200/80 font-bold relative z-10">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center space-x-1.5">
+        <!-- Tiny Marigold Flower SVG -->
+        <svg class="w-4 h-4 text-marigold-500" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="8"/>
+        </svg>
+        <span>Made with love by [YOUR NAME] in India</span>
+      </div>
+      <div class="text-[11px] text-maroon-700/60 dark:text-amber-200/60">
+        BolTranslate — Indian Marigold & Rangoli Theme • Firebase AI Logic & Chrome Gemini Nano • 100% Offline
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
